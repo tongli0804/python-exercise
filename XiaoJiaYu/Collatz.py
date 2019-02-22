@@ -453,11 +453,11 @@ Python的函数可以嵌套，但是注意访问的作用域问题
 '''请将下边的匿名函数转变为普通的屌丝函数？
 lambda x : x if x%2 else None
 '''
-def funx(x):
-    if x % 2:
-        return x
-    else:
-        return None
+# def funx(x):
+#     if x % 2:
+#         return x
+#     else:
+#         return None
 
 
 
@@ -477,9 +477,9 @@ def funx(x):
 
 使用filter()和lambda()表达式快速求出100以内所有3的倍数,并改为列表推导式
 '''
-list(filter(lambda x : x % 3 == 0 , range(100)))
-# 列表推导式
-[x for x in range(100) if x % 3 == 0]
+# list(filter(lambda x : x % 3 == 0 , range(100)))
+# # 列表推导式
+# [x for x in range(100) if x % 3 == 0]
 
 
 
@@ -499,13 +499,269 @@ zip:zip会将两个数以元组的形式绑定在一起
 [(1, 2), (3, 4), (5, 6), (7, 8), (9, 10)] 
 '''
 '''
-但是如果我希望打包的形式是灵活多变的列表而不是元组（希望是[[1,2],[3,4],[5,6],[7,8],[9,10]]这种形式），你能做到吗？（采用map和lambda表达式）
+但是如果我希望打包的形式是灵活多变的列表而不是元组
+（希望是[[1,2],[3,4],[5,6],[7,8],[9,10]]这种形式），你能做到吗？
+（采用map和lambda表达式）
 '''
-# 方法一
-list(map(lambda x: list(x), zip([1, 3, 5, 7, 9], [2, 4, 6, 8, 10])))
+# # 方法一
+# list(map(lambda x: list(x), zip([1, 3, 5, 7, 9], [2, 4, 6, 8, 10])))
+#
+# # 方法二
+# list(map(lambda x, y: [x, y], [1, 3, 5, 7, 9], [2, 4, 6, 8, 10]))
 
-# 方法二
-list(map(lambda x, y: [x, y], [1, 3, 5, 7, 9], [2, 4, 6, 8, 10]))
+
+
+
+
+
+
+
+
+
+'''
+递归:
+递归的实现是函数自身调用自己进行的，每次函数的调用都需要进行压栈、弹栈、保存和恢复寄存器的栈，
+这是非常消耗时间和空间的。另外，如果递归一旦忘记了返回，或者错误的设置了返回条件，
+那么执行这样的递归代码就会变成一个无底洞：只进不出。
+'''
+# def dtbin(num):
+#     def tbin(num):
+#         result = ''
+#         if num:
+#             result = tbin( num // 2 )
+#             return result + str(num % 2)
+#         else:
+#             return result
+#     if num == 0:
+#         return '0b' + '0'
+#     else:
+#         return '0b' + tbin(num)
+# print(dtbin(0))
+
+# def get_digits(n):
+#     result = ''
+#     if n:
+#         result = get_digits(n//10)
+#         result += str(n%10)
+#     return list(result)
+# print(get_digits(554))
+
+# def hwl(words):
+#     start = 0
+#     end = len(words) - 1
+#     def hwlpd(words, start, end):
+#         if start > end :
+#             return 1
+#         else:
+#             if words[start] == words[end]:
+#                 return hwlpd(words, start + 1, end - 1)
+#             else:
+#                 return 0
+#     if hwlpd(words, start, end):
+#         if words[0:len(words)//2] == words[len(words)//2:len(words)]:
+#             print('%s 不是一个回文联字符串'%words)
+#         else:
+#             print('%s 是一个回文联字符串！'%words)
+#     else:
+#         print('%s 不是一个回文联字符串'%words)
+
+
+
+
+
+
+
+
+
+
+
+
+'''
+HashMap是一个用于存储Key-Value键值对的集合，每一个键值对也叫做Entry。
+这些个键值对（Entry）分散存储在一个数组当中，这个数组就是HashMap的主干。
+字典,就是用哈希表实现的。
+'''
+# print('''|--- 欢迎进入通讯录程序 ---|
+# |--- 1：查询联系人资料 ---|
+# |--- 2：插入新的联系人 ---|
+# |--- 3：删除已有联系人 ---|
+# |--- 4：退出通讯录程序 ---|
+# ''')
+# txl = {}
+# while True:
+#     srdm = int(input('请输入通讯录功能代码：'))
+#     if srdm == 1:
+#         xm = input("请输入联系人姓名")
+#         if xm in txl:
+#             print('为您查到了：' + xm + " 联系电话：" + txl[xm])
+#             continue
+#         else:
+#             print("查询不到此人，为您返回初始界面")
+#             continue
+#     if srdm == 2:
+#         xm = input("请输入联系人姓名")
+#         if xm in txl:
+#             print('您输入的联系人已存在，' + xm + "联系电话" + txl[xm])
+#             pd = input('是否修改联系人？(YES/NO)：')
+#             if pd == 'YSE':
+#                 dh = input('请输入新的电话号码：')
+#                 txl[xm] = dh
+#                 print('已经修改成功')
+#                 continue
+#             else:
+#                 print('为您返回初始界面')
+#                 continue
+#         else:
+#             dh = input('请输入电话号码')
+#             txl[xm] = dh
+#             print('添加完成，为您返回初始界面')
+#             continue
+#     if srdm == 3:
+#         xm = input('请输入联系人姓名：')
+#         if xm in txl:
+#             print('请问是否删除此联系人？(YES/NO)')
+#             pd = input('(YES/NO)：')
+#             if pd == 'YES':
+#                 del(txl[xm])
+#                 print('删除成功，为你返回初始界面')
+#                 continue
+#             else:
+#                 print('为您返回初始界面')
+#                 continue
+#         else:
+#             print('没有找到该联系人，为您返回初始界面')
+#             continue
+#     if srdm == 4:
+#         break
+#     else:
+#         print('输入有误，为您返回初始界面')
+#         continue
+'''
+编写一个用户登录程序（这次尝试将功能封装成函数）
+'''
+# def load():
+#     dict1 = {'莉莉': 'lili'}
+#     while 1:
+#         key = input('''
+#         |--- 新建用户：N/n ---|
+#         |--- 登录帐号：E/e ---|
+#         |--- 退出程序：Q/q ---|
+#         |--- 请输入指令代码：''')
+#         if key == 'N' or key == 'n':
+#             temp_name = input('请输入用户名：')
+#             while temp_name in dict1:
+#                 temp_name = input('此用户名已经被使用，请重新输入：')
+#             temp_password = input('请输入密码：')
+#             dict1[temp_name] = temp_password
+#             print('注册成功！赶紧试试登录吧')
+#             continue
+#         elif key == 'E' or key == 'e':
+#             temp_name = input('请输入用户名：')
+#             if temp_name in dict1:
+#                 temp_password = input('请输入密码：')
+#                 if temp_password != dict1[temp_name]:
+#                     temp_password = input('密码错误，请重新输入：')
+#                 else:
+#                     print('欢迎进入系统，请点右上角的X结束程序！')
+#             else:
+#                 temp_name = input('没有此用户名，请重新输入：')
+#         elif key == 'Q' or key == 'q':
+#             break
+
+
+
+
+
+
+'''
+集合：确保集合内部数字元素的唯一性；集合内的元素是无法索引到的；
+集合会自动剔除重复的数字元素；可变集合可以使用 .add() 指令添加一个数字元素，
+可以用 .remove() 删除集合内一个数字元素
+'''
+
+'''
+文件：
+默认的打开形式是 'rt' 以 只读 文本 模式打开。其他方式有：
+打开模式	执行操作
+'r'	以只读方式打开文件（默认）
+'w'	以写入的方式打开文件，会覆盖已存在的文件（有风险**）
+'x'	如果文件已经存在，使用此模式打开将引发异常
+'a'	以写入模式打开，如果文件存在，则在末尾追加写入
+'b'	以二进制模式打开文件
+'t'	以文本模式打开（默认）
+'+'	可读写模式（可添加到其他模式中使用）
+'U'	通用换行符支持
+f.see()需要另外学习一下
+'''
+# # 编写代码，将文件（OpenMe.mp3）保存为新文件（OpenMe. txt）
+# # 第一种方法：
+# f1 = open('D:\Python\Python3\OpenMe.mp3')
+# f2 = open('D:\Python\Python3\OpenMe.txt', 'x')
+# for each_line in f1:
+#     f2.write(each_line)
+# f1.close()
+# f2.close()
+# # 第二种方法
+# f1 = open('D:\Python\Python3\OpenMe.mp3')
+# f2 = open('D:\Python\Python3\OpenMe2.txt', 'x')
+# f2.write(f1.read())
+# f1.close()
+# f2.close()
+
+# # 接受用户的输入并保存为新的文件
+# def file_write(file_name):
+#     print("请输入内容【单独输入':w'保存退出】：")
+#     new_file = open(file_name, 'w')
+#     while True:
+#         neirong = input()
+#         if neirong != ':w':
+#             new_file.write('%s\n' % neirong)
+#         else:
+#             break
+# file_name = input('请输入文件名：')
+# file_write(file_name)
+
+# 比较用户输入的两个文件，如果不同，显示所有不同处的行号与第一个不同字符的位置
+# def file_compare(file_name_1, file_name_2):
+#     file_1 = open(file_name_1)
+#     file_2 = open(file_name_2)
+#     count = 0
+#     different = []
+#     for each_line in file_1.readline():
+#         if each_line == file_2.readline():
+#             count += 1
+#         else:
+#             different.append(count)
+#     file_1.close()
+#     file_2.close()
+#     return different
+#     file_name_1 = input('请输入需要比较的第一个文件名：')
+#     file_name_2 = input('请输入需要比较的第二个文件名：')
+#     file_compare(file_name_1, file_name_2)
+#     if len(different) == 0:
+#         print('两个文件完全一样')
+#     else:
+#         print('两个文件有【%d】处不一样' % len(different))
+#         for each in different:
+#             print('第%d行不一样' % each)
+
+# 当用户输入文件名和行数（N）后，将该文件的前N行中内容打印到屏幕上
+# def file_print(file, num):
+#     f = open(file)
+#     print('''文件%s的前%d的内容如下：''' % (file, num))
+#     for i in range(num):
+#         print(f.readline())
+#     f.close()
+# file_name = input('请输入要打开的文件：')
+# num = int(input('请输入需要显示该文件前几行'))
+# file_print(file_name, num)
+
+#
+
+
+
+
+
 
 
 
