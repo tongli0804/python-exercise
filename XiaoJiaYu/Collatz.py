@@ -756,7 +756,83 @@ f.see()需要另外学习一下
 # num = int(input('请输入需要显示该文件前几行'))
 # file_print(file_name, num)
 
+# 要求在上一题的基础上扩展，用户可以随意输入需要显示的行数
+# def file_print(file ,paragraph):
+#     (start, end) = paragraph.split(':')
+#     if start == '':
+#         start = 1
+#     else:
+#         start = int(start)
+#     if end == '':
+#         end = -1
+#     else:
+#         end = int(end)
+#     f = open(file)
+#     if start == 1:
+#         if end == -1:
+#             print('''文件%s的从头开头到结束的内容如下：''' % file)
+#         else:
+#             print('''文件%s的从开头到第%d行的内容如下：''' % (file, end))
+#     else:
+#         if end == -1:
+#             print('''文件%s的从%d行到结束的内容如下：''' % (file, start))
+#         else:
+#             print('''文件%s的从第%d行到第%d行的内容如下：''' % (file, start, end))
+#     for i in range(start - 1):
+#         f.readline()
+#     num = end - start + 1
+#     if num < 0:
+#         print(f.read())
+#     else:
+#         for i in range(num):
+#             print(f.readline())
+#     f.close()
+# file_name = input(r'请输入要打开的文件（C:\\test.txt）：')
+# paragraph = input('请输入需要显示的行数【格式如13：21或：21或21：】：')
+# while paragraph == '':
+#     paragraph = input('输入有误，请重新输入：')
+# file_print(file_name, paragraph)
+
+# 编写一个程序，实现“全部替换”功能
+# def file_replace(file_name, rep_word, new_word):
+#     f_read = open(file_name)
+#     content = []
+#     count = 0
+#     for each_line in f_read:
+#         if rep_word in each_line:
+#             count += each_line.count(rep_word)
+#             each_line = each_line.replace(rep_word, new_word)
+#         content.append(each_line)
+#     decide = input('\n文件 %s 中共有%s个【%s】\n您确定要把所有的【%s】替换为【%s】吗？\n【YES/NO】：' \
+#                    % (file_name, count, rep_word, rep_word, new_word))
 #
+#     if decide in ['YES', 'Yes', 'yes']:
+#         f_write = open(file_name, 'w')
+#         f_write.writelines(content)
+#         f_write.close()
+#     f_read.close()
+# file_name = input('请输入文件名：')
+# rep_word = input('请输入需要替换的单词或字符：')
+# new_word = input('请输入新的单词或字符：')
+# file_replace(file_name, rep_word, new_word)
+
+# 统计当前目录下每个文件类型的文件数
+import os
+all_files = os.listdir(os.curdir)
+type_dict = dict()
+for each_file in all_files:
+    if os.path.isdir(each_file):
+        type_dict.setdefault('文件夹', 0)
+        type_dict['文件夹'] += 1
+    else:
+        ext = os.path.splitext(each_file)[1]
+        type_dict.setdefault(ext, 0)
+        type_dict[ext] += 1
+
+for each_type in type_dict.keys():
+    print('该文件夹下共有类型为【%s】的文件 %d 个' % (each_type, type_dict[each_type]))
+
+
 
 
 
